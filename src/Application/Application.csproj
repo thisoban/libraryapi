@@ -20,7 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Series\Commands\CreateSeries\" />
       <Folder Include="Series\Commands\DeleteSeries\" />
       <Folder Include="Series\Commands\UpdateSeries\" />
       <Folder Include="Series\EventHandlers\" />
