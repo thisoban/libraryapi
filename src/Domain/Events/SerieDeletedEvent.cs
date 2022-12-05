@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Domain.Events;
 public class SerieDeletedEvent : BaseEvent
 {
-    public (Serie serieItem){SerieItem = serieItem};
+    public SerieDeletedEvent(Serie serieItem)
+    { SerieItem = serieItem; }
     public Serie SerieItem { get; }
 
 }

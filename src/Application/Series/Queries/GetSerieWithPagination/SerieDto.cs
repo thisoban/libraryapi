@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Series.Queries.GetSerieWithPagination;
-internal class SerieDto
+public class SerieDto
 {
     public int Id { get; set; }
     public string Name { get; set; }    

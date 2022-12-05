@@ -20,7 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Series\Commands\UpdateSeries\" />
       <Folder Include="Series\EventHandlers\" />
     </ItemGroup>
 

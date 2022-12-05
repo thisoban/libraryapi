@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,34 +10,30 @@ using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Mappings;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Application.Series.Queries.GetSerieWithPagination;
+using CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.Series.Queries.GetSerie;
-public class GetserieQuery :IRequest<PaginatedList<SerieDto>>
+public class GetserieQuery :IRequest<SerieDto>
 {
     public int serieId { get; init; }
-    public int PageNumber { get; init; } = 1;
-    public int PageSize { get; init; } = 10;
+  
 }
-public class GetSerieWithPaginationQueryHandler : IRequestHandler<GetserieQuery, PaginatedList<SerieDto>>
+
+public class GetSerieQueryhandler : IRequest < SerieDto>
 {
-    public int serieId { get;}
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
 
-    public GetSerieWithPaginationQueryHandler(IApplicationDbContext context, IMapper mapper)
+    public GetSerieQueryhandler(IApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;   
     }
 
-    public async Task<PaginatedList<SerieDto>> IRequestHandler<GetserieQuery, PaginatedList<SerieDto>>Handle(GetserieQuery request, CancellationToken cancellationToken)
+    public async Task <List<SerieDto>> Handle(GetserieQuery request, CancellationToken cancellationToken)
     {
-        return await _context.Series
-            .Where(x => serieId == request.serieId)
-            .OrderBy(x => x.Name)
-            .ProjectTo<SerieDto>(_mapper.ConfigurationProvider)
-            .PaginatedListAsync(request.PageNumber, request.PageSize);
-        throw new NotImplementedException();
+         List<SerieDto> series = (List<SerieDto>)_context.Series.ProjectTo<SerieDto>(_mapper.ConfigurationProvider);
+        return series;
     }
 }
